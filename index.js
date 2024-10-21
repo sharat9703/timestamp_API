@@ -27,7 +27,7 @@ app.get(
   function (req, res, next) {
     const dateparam = req.params.date;
     if (!dateparam) {
-      req.date = new Date();
+      req.date = new Date.now();
     } else if (/\d{5,}/.test(dateparam)) {
       req.date = new Date(parseInt(dateparam));
     } else {
@@ -47,6 +47,12 @@ app.get(
     });
   },
 );
+app.get('/api/',(req,res)=>{
+    res.status(200).json({
+      unix: Number(Date.now()),
+      utc: (new Date(parseInt(Date.now()))).toUTCString(),
+    })
+});
 var listener = app.listen(3000, function () {
   console.log("Listening on port " + listener.address().port);
 });
