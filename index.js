@@ -48,3 +48,5 @@ app.get(
 var listener = app.listen(8080, function () {
   console.log("Listening on port " + listener.address().port);
 });
+
+module.exports = app;
