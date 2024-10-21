@@ -2,7 +2,7 @@ var express = require("express");
 // var path = require("path");
 // var cookieParser = require("cookie-parser");
 // var logger = require("morgan");
-
+var path = require("path")
 // var indexRouter = require("./routes/index");
 // var usersRouter = require("./routes/users");
 // var timeRouter = require("./routes/time");
@@ -11,6 +11,7 @@ var app = express();
 // app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 // app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, "public")));
 
@@ -18,7 +19,8 @@ app.use(express.urlencoded({ extended: false }));
 // app.use("/users", usersRouter);
 // app.use("/api", timeRouter);
 app.get("/", (req, res) => {
-  res.status(200).send("Hello from API server");
+  res.status(200).sendFile(path.join(__dirname, 'public', 'index.html'));
+
 });
 app.get(
   "/api/:date",
@@ -45,7 +47,7 @@ app.get(
     });
   },
 );
-var listener = app.listen(8080, function () {
+var listener = app.listen(3000, function () {
   console.log("Listening on port " + listener.address().port);
 });
 
